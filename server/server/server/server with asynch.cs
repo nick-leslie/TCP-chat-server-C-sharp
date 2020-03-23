@@ -9,8 +9,6 @@ namespace server_programs
 {
     class TestingAsynch
     {
-        private int _headerlength;
-        public int headerlength { get => head; }
         public void start(int _port)
         {
             int port = _port;
@@ -37,6 +35,7 @@ namespace server_programs
 
             int i = 0;
 
+            //this will read untill the message is done
             while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
             {
                 data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);

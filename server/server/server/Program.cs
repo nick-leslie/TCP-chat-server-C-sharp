@@ -13,11 +13,15 @@ namespace server_programs
         {
             Console.WriteLine(getLocalIP());
             Console.ReadKey();
-           int port = 1234;
+            //  int port = 1234;
             // Server s = new Server();
             //s.start(port);
-            TestingAsynch test = new TestingAsynch();
-            test.start(port);
+            //  TestingAsynch test = new TestingAsynch();
+            // test.start(port);
+            packetCreator packer = new packetCreator();
+            packetReader interpreter = new packetReader();
+            interpreter.readPacet(packer.createPacet(1, "this is a test"));
+            
         }
         public static string getLocalIP()
         {
