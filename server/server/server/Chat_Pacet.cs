@@ -68,7 +68,7 @@ namespace server_programs
             Console.WriteLine("Message:" +ReadMessage(pac, Mesagelength));
 
         } 
-        private int readHeader(Byte[] pac)
+        public int readHeader(Byte[] pac)
         {
             Byte[] headerByteArray = new Byte[headerSize];
             String headerString;
