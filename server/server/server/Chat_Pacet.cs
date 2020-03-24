@@ -56,10 +56,10 @@ namespace server_programs
         {
             if (_cmd <= 3)
             {
-                Encoding.ASCII.GetBytes(_cmd.ToString());
+               buffer.AddRange(Encoding.ASCII.GetBytes(_cmd.ToString()));
             } else
             {
-                Encoding.ASCII.GetBytes(0.ToString());
+               buffer.AddRange(Encoding.ASCII.GetBytes(0.ToString()));
             }
         }
         void reset()
@@ -85,8 +85,10 @@ namespace server_programs
             {
                 Mesagelength = readHeader(pac);
                 Console.WriteLine("Message Length:" + Mesagelength);
+                Console.WriteLine("CMD inputed:" + readCMD(pac));
                 Console.WriteLine("UserID:" + ReadUserID(pac));
                 Console.WriteLine("Message:" + ReadMessage(pac, Mesagelength));
+                Console.WriteLine("the full packet:" + Encoding.ASCII.GetString(pac));
             } else
             {
                 Console.WriteLine("packet not corect verification code");
@@ -137,7 +139,7 @@ namespace server_programs
             int cmd;
             for (int i = 0; i < cmdByteNum; i++)
             {
-             cmdByte[i] = pac[packetVarificationLength + headerSize + i];
+             cmdByte[i] = pac[packetVarificationLength + headerSize + cmdByteNum + i];
             }
             cmdString = Encoding.ASCII.GetString(cmdByte);
             try
