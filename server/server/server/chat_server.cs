@@ -8,7 +8,7 @@ namespace server_programs
 {
     class chat_server
     {
-        int HeaderSize;
+        int HeaderSize; 
         public void start(int _port)
         {
             int port = _port;
@@ -30,13 +30,47 @@ namespace server_programs
 
             NetworkStream stream = client.GetStream();
             stream.Read(data, 0, data.Length);
+            comandInterpriter(reader.readCMD(data));
             reader.readPacet(data);
+        }
+        void comandInterpriter (int cmd)
+        {
+            if (cmd <= 3)
+            {
+                switch (cmd)
+                {
+                    case 0:
+                        //TODO start setion
+                        Console.WriteLine("start setion comand called");
+                        break;
+                    case 1:
+                        //Change username
+                        Console.WriteLine("change username comand called");
+                        break;
+                    case 2:
+                        //sending message
+                        Console.WriteLine("send message comand called");
+                        break;
+                    case 3:
+                        Console.WriteLine("disconect comand called");
+                        //disconect
+                        break;
+                }
+            } else
+            {
+                Console.WriteLine("invaled comand");
+            }
+            
         }
         void WelcomeUser()
         {
 
         }
         void Send()
+        {
+
+        }
+        void disconect()
         {
 
         }

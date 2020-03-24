@@ -20,7 +20,6 @@ namespace server_programs
             // test.start(port);
             packetCreator packer = new packetCreator();
             packetReader interpreter = new packetReader();
-            interpreter.readPacet(packer.createPacet(1, "this is a test"));
             chat_server server = new chat_server();
             server.start(port);
             

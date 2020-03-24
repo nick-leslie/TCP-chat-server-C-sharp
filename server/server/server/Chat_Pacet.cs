@@ -15,8 +15,9 @@ namespace server_programs
         {
             buffer = new List<byte>();
         }
-       public Byte[] createPacet(int userID,string Message)
+       public Byte[] createPacet(int userID,int cmd,string Message)
         {
+            writeCMD(cmd);
             writeUserID(userID);
             write(Message);
             Byte[] packet;
@@ -51,6 +52,16 @@ namespace server_programs
                 buffer.AddRange(Encoding.ASCII.GetBytes(0.ToString().PadRight(userIDLength)));
             }
         }
+        void writeCMD(int _cmd)
+        {
+            if (_cmd <= 3)
+            {
+                Encoding.ASCII.GetBytes(_cmd.ToString());
+            } else
+            {
+                Encoding.ASCII.GetBytes(0.ToString());
+            }
+        }
         void reset()
         {
             buffer.Clear();
@@ -62,6 +73,7 @@ namespace server_programs
         int userIDLength = 2;
         int Mesagelength;
         int packetVarificationLength = 4;
+        int cmdByteNum = 1;
         string packetVerification = "NL36";
         public packetReader()
         {
@@ -118,6 +130,26 @@ namespace server_programs
             }
             return messageLegth;
         }
+        public int readCMD(Byte[] pac)
+        {
+            byte[] cmdByte = new Byte[cmdByteNum];
+            string cmdString;
+            int cmd;
+            for (int i = 0; i < cmdByteNum; i++)
+            {
+             cmdByte[i] = pac[packetVarificationLength + headerSize + i];
+            }
+            cmdString = Encoding.ASCII.GetString(cmdByte);
+            try
+            {
+                cmd = Int32.Parse(cmdString);
+            } catch
+            {
+                Console.WriteLine("invaled cmd");
+                return 0;
+            }
+            return cmd;
+        }
         private int ReadUserID(Byte[] pac)
         {
             Byte[] userIDBytes = new Byte[userIDLength];
@@ -125,7 +157,7 @@ namespace server_programs
             int userID=0;
             for (int i = 0; i < userIDLength; i++)
             {
-                userIDBytes[i] = pac[headerSize + packetVarificationLength + i];
+                userIDBytes[i] = pac[headerSize + packetVarificationLength + cmdByteNum + i];
             }
             userIDString = Encoding.ASCII.GetString(userIDBytes);
             userIDString.Trim();
@@ -145,7 +177,7 @@ namespace server_programs
             String Message;
             for (int i = 0; i < messageLength; i++)
             {
-                messageBytes[i] = pac[packetVarificationLength + headerSize + userIDLength + i];
+                messageBytes[i] = pac[packetVarificationLength + headerSize + cmdByteNum + userIDLength + i];
             }
             Message = Encoding.ASCII.GetString(messageBytes);
             return Message;
