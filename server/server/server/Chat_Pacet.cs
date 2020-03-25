@@ -139,7 +139,7 @@ namespace server_programs
             int cmd;
             for (int i = 0; i < cmdByteNum; i++)
             {
-             cmdByte[i] = pac[packetVarificationLength + headerSize + cmdByteNum + i];
+             cmdByte[i] = pac[packetVarificationLength + headerSize + i];
             }
             cmdString = Encoding.ASCII.GetString(cmdByte);
             try
@@ -152,7 +152,7 @@ namespace server_programs
             }
             return cmd;
         }
-        private int ReadUserID(Byte[] pac)
+        public int ReadUserID(Byte[] pac)
         {
             Byte[] userIDBytes = new Byte[userIDLength];
             String userIDString = "";
@@ -173,7 +173,7 @@ namespace server_programs
             }
             return userID;
         }
-        private string ReadMessage(Byte[] pac,int messageLength)
+        public string ReadMessage(Byte[] pac,int messageLength)
         {
             Byte[] messageBytes = new Byte[messageLength];
             String Message;

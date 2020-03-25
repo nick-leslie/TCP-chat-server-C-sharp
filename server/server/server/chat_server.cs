@@ -8,7 +8,9 @@ namespace server_programs
 {
     class chat_server
     {
-        int HeaderSize; 
+        int HeaderSize;
+        Dictionary<int, string> users = new Dictionary<int, string>();
+        Dictionary<int, IPAddress> userIP = new Dictionary<int, IPAddress>();
         public void start(int _port)
         {
             int port = _port;
@@ -27,21 +29,27 @@ namespace server_programs
             TcpClient client = server.EndAcceptTcpClient(result);
             packetReader reader = new packetReader();
             Byte[] data = new Byte[256];
+            IPAddress clinetIp = IPAddress.Parse(((IPEndPoint)client.Client.RemoteEndPoint).Address.ToString());
+
 
             NetworkStream stream = client.GetStream();
             stream.Read(data, 0, data.Length);
-            comandInterpriter(reader.readCMD(data));
-            reader.readPacet(data);
+            if (reader.readVerification(data))
+            {
+                comandInterpriter(reader.readCMD(data),data,clinetIp);
+            }
+            
         }
-        void comandInterpriter (int cmd)
+        void comandInterpriter (int cmd,Byte[] pac,IPAddress address)
         {
+            //Console.WriteLine("entering the comand interpriter not enter safety mode yet");
             if (cmd <= 3)
             {
+              //  Console.WriteLine("entered the cmd structue");
                 switch (cmd)
                 {
                     case 0:
-                        //TODO start setion
-                        Console.WriteLine("start setion comand called");
+                        startSetion(pac,address);
                         break;
                     case 1:
                         //Change username
@@ -62,13 +70,31 @@ namespace server_programs
             }
             
         }
-        void WelcomeUser()
+        void startSetion(Byte[] pac,IPAddress address)
         {
-
+            Console.WriteLine("start setion comand called");
+            packetReader reader = new packetReader();
+            users.Add(reader.ReadUserID(pac), reader.ReadMessage(pac, reader.readHeader(pac)));
+            userIP.Add(reader.ReadUserID(pac), address);
+            foreach(KeyValuePair<int,String> kvp in users)
+            {
+                Console.WriteLine("key = {0}, value ={1}",kvp.Key,kvp.Value);
+            }
+            foreach (KeyValuePair<int, IPAddress> kvp in userIP)
+            {
+                Console.WriteLine("key = {0}, value ={1}", kvp.Key, kvp.Value);
+            }
         }
-        void Send()
+        void Send(Byte[] pac)
         {
-
+            packetReader reader = new packetReader();
+            foreach (KeyValuePair<int,IPAddress> kvp in userIP)
+            {
+                if(kvp.Key != reader.ReadUserID(pac) )
+                {
+                    // write send code
+                }
+            }
         }
         void disconect()
         {
