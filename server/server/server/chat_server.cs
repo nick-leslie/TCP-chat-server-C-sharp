@@ -32,13 +32,15 @@ namespace server_programs
             Byte[] data = new Byte[256];
             IPAddress clinetIp = IPAddress.Parse(((IPEndPoint)client.Client.RemoteEndPoint).Address.ToString());
 
-
+            Console.WriteLine("incomint conection");
             NetworkStream stream = client.GetStream();
             stream.Read(data, 0, data.Length);
             if (reader.readVerification(data))
             {
                 comandInterpriter(reader.readCMD(data),data,client);
             }
+            Thread receveMSG = new Thread(() => receveMessages(client));
+            receveMSG.Start();
             
         }
         void comandInterpriter(int cmd, Byte[] pac, TcpClient client)
@@ -57,7 +59,7 @@ namespace server_programs
                         Console.WriteLine("change username comand called");
                         break;
                     case 2:
-                        //sending message
+                        Send(pac);
                         Console.WriteLine("send message comand called");
                         break;
                     case 3:
@@ -109,6 +111,20 @@ namespace server_programs
         void disconect()
         {
 
+        }
+        //this is the infint lissen loop
+        void receveMessages(TcpClient client)
+        {
+            NetworkStream stream = client.GetStream();
+            packetReader reader = new packetReader();
+            while(true)
+            {
+                Byte[] buffer = new Byte[256];
+                stream.Read(buffer, 0, buffer.Length);
+                comandInterpriter(reader.readCMD(buffer),buffer,client);
+                Console.WriteLine(reader.ReadMessage(buffer, reader.readHeader(buffer)));
+                Thread.Sleep(500);
+            } 
         }
     }
 }
