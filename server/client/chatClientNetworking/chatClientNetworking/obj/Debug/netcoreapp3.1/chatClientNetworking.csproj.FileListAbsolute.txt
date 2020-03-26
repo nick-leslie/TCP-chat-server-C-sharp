@@ -9,3 +9,14 @@
 /Users/nickleslie/Projects/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.dll
 /Users/nickleslie/Projects/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.pdb
 /Users/nickleslie/Projects/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.genruntimeconfig.cache
+/Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/bin/Debug/netcoreapp3.1/chatClientNetworking.deps.json
+/Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/bin/Debug/netcoreapp3.1/chatClientNetworking.runtimeconfig.json
+/Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/bin/Debug/netcoreapp3.1/chatClientNetworking.runtimeconfig.dev.json
+/Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/bin/Debug/netcoreapp3.1/chatClientNetworking.dll
+/Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/bin/Debug/netcoreapp3.1/chatClientNetworking.pdb
+/Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.csprojAssemblyReference.cache
+/Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.AssemblyInfoInputs.cache
+/Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.AssemblyInfo.cs
+/Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.dll
+/Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.pdb
+/Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.genruntimeconfig.cache

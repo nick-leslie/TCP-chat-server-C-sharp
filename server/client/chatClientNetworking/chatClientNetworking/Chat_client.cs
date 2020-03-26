@@ -12,60 +12,20 @@ namespace chatClientNetworking
         public int UserID;
         public Dictionary<int, string> users = new Dictionary<int, string>();
         public TcpClient client;
-        public NetworkStream stream;
         private static Mutex locker = new Mutex();
         public Chat_client(string ip,int _port)
         {
             p_port = _port;
             client = new TcpClient(ip, port);
-            NetworkStream stream = client.GetStream();
         }
-        public void MicrosoftConect(String server, Byte[] packet)
-        {
-            try
-            {
-                // Create a TcpClient.
-                // Note, for this client to work you need to have a TcpServer 
-                // connected to the same address as specified by the server, port
-                // combination.
-                Int32 port = 1234;
-                TcpClient client = new TcpClient(server, port);
-
-                // Translate the passed message into ASCII and store it as a Byte array.
-
-                Byte[] data = new Byte[256];
-
-                // Get a client stream for reading and writing.
-                //  Stream stream = client.GetStream();
-
-                NetworkStream stream = client.GetStream();
-
-                // Send the message to the connected TcpServer. 
-                stream.Write(packet, 0, packet.Length);
-
-                Console.WriteLine("Sent: {0}", packet);
-                stream.Close();
-                client.Close();
-            }
-            catch (ArgumentNullException e)
-            {
-                Console.WriteLine("ArgumentNullException: {0}", e);
-            }
-            catch (SocketException e)
-            {
-                Console.WriteLine("SocketException: {0}", e);
-            }
-
-            Console.WriteLine("\n Press Enter to continue...");
-            Console.Read();
-        }
+      
         public void Start(string UserName)
         { 
             packetCreator creator = new packetCreator();
             packetReader reader = new packetReader();
             Byte[] pac = creator.createPacet(0, 0, UserName);
 
-
+            NetworkStream stream = client.GetStream();
             stream.Write(pac, 0, pac.Length);
 
             Byte[] recevedPAC = new Byte[256];
@@ -74,20 +34,28 @@ namespace chatClientNetworking
             Thread receve = new Thread(receveMessage);
             //set up threading for receving messagess
         }
-        void sendMessage(Byte[] pac)
-        {
+        public void sendMessage(Byte[] pac)
+        { 
+            Console.WriteLine("sending message;");
            locker.WaitOne();// entering the mutex so the stream is not wroute to and read at same time
+            NetworkStream stream = client.GetStream();
+            Console.WriteLine("sending message mutex");
             stream.Write(pac,0,pac.Length);
             locker.ReleaseMutex();//exiting the mutex
         }
         void receveMessage()
         {
-            packetReader reader = new packetReader();
-            locker.WaitOne();
-            Byte[] buffer = new Byte[256];
-            stream.Read(buffer, 0, buffer.Length);
-            CMDInterpreter(reader.ReadUserID(buffer), buffer);
-            locker.ReleaseMutex();
+            while (true)
+            {
+                packetReader reader = new packetReader();
+                locker.WaitOne();
+                Byte[] buffer = new Byte[256];
+                NetworkStream stream = client.GetStream();
+                stream.Read(buffer, 0, buffer.Length);
+                CMDInterpreter(reader.ReadUserID(buffer), buffer);
+                locker.ReleaseMutex();
+                Thread.Sleep(500);
+            }
         }
         void addUser(Byte[] pac)
         {
