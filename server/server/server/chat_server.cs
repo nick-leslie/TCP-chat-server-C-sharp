@@ -8,9 +8,10 @@ namespace server_programs
 {
     class chat_server
     {
-        int HeaderSize;
+        int HeaderSize=10;
         Dictionary<int, string> users = new Dictionary<int, string>();
-        Dictionary<int, IPAddress> userIP = new Dictionary<int, IPAddress>();
+        Dictionary<int, TcpClient> userClient = new Dictionary<int, TcpClient>();
+        int userCount = 0;
         public void start(int _port)
         {
             int port = _port;
@@ -36,11 +37,11 @@ namespace server_programs
             stream.Read(data, 0, data.Length);
             if (reader.readVerification(data))
             {
-                comandInterpriter(reader.readCMD(data),data,clinetIp);
+                comandInterpriter(reader.readCMD(data),data,client);
             }
             
         }
-        void comandInterpriter (int cmd,Byte[] pac,IPAddress address)
+        void comandInterpriter(int cmd, Byte[] pac, TcpClient client)
         {
             //Console.WriteLine("entering the comand interpriter not enter safety mode yet");
             if (cmd <= 3)
@@ -49,7 +50,7 @@ namespace server_programs
                 switch (cmd)
                 {
                     case 0:
-                        startSetion(pac,address);
+                        startSetion(pac,client);
                         break;
                     case 1:
                         //Change username
@@ -70,37 +71,42 @@ namespace server_programs
             }
             
         }
-        void startSetion(Byte[] pac,IPAddress address)
+        void startSetion(Byte[] pac,TcpClient client)
         {
             Console.WriteLine("start setion comand called");
             packetReader reader = new packetReader();
-            users.Add(reader.ReadUserID(pac), reader.ReadMessage(pac, reader.readHeader(pac)));
-            userIP.Add(reader.ReadUserID(pac), address);
+            packetCreator creator = new packetCreator();
+            userCount += 1;
+            users.Add(userCount, reader.ReadMessage(pac, reader.readHeader(pac)));
+            userClient.Add(userCount, client);
             foreach(KeyValuePair<int,String> kvp in users)
             {
                 Console.WriteLine("key = {0}, value ={1}",kvp.Key,kvp.Value);
             }
-            foreach (KeyValuePair<int, IPAddress> kvp in userIP)
+            foreach (KeyValuePair<int, TcpClient> kvp in userClient)
             {
-                Console.WriteLine("key = {0}, value ={1}", kvp.Key, kvp.Value);
+              //writes the client ID and IPaddress
+                Console.WriteLine("key = {0}, value ={1}", kvp.Key,((IPEndPoint)kvp.Value.Client.RemoteEndPoint).Address.ToString());
             }
+            Byte[] newUserPac = creator.createPacet(userCount, 0, users[userCount]);
+            NetworkStream stream = client.GetStream();
+            stream.Write(newUserPac, 0, newUserPac.Length);
+            Send(newUserPac);
         }
         void Send(Byte[] pac)
         {
             packetReader reader = new packetReader();
-            foreach (KeyValuePair<int,IPAddress> kvp in userIP)
+            foreach (KeyValuePair<int,TcpClient> kvp in userClient)
             {
                 if(kvp.Key != reader.ReadUserID(pac) )
                 {
-                    // write send code
+                    TcpClient client = kvp.Value;
+                    NetworkStream stream = client.GetStream();
+                    stream.Write(pac, 0, pac.Length);
                 }
             }
         }
         void disconect()
-        {
-
-        }
-        void Receve()
         {
 
         }
