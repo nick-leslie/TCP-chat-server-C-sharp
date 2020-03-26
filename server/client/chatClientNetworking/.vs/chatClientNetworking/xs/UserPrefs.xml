@@ -1,0 +1,27 @@
+﻿<Properties StartupConfiguration="{28931C32-24CC-4C8C-844B-CDB868E2D3AA}|Default">
+  <MonoDevelop.Ide.ItemProperties.chatClientNetworking PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="chatClientNetworking/packetHandler.cs">
+    <Files>
+      <File FileName="chatClientNetworking/Chat_client.cs" Line="96" Column="18" />
+      <File FileName="chatClientNetworking/Program.cs" />
+      <File FileName="chatClientNetworking/packetHandler.cs" Line="194" Column="2" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="chatClientNetworking" expanded="True">
+            <Node name="chatClientNetworking" expanded="True">
+              <Node name="packetHandler.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

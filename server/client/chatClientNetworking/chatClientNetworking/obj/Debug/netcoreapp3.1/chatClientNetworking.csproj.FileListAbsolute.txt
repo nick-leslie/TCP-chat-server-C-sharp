@@ -1,0 +1,11 @@
+/Users/nickleslie/Projects/chatClientNetworking/chatClientNetworking/bin/Debug/netcoreapp3.1/chatClientNetworking.deps.json
+/Users/nickleslie/Projects/chatClientNetworking/chatClientNetworking/bin/Debug/netcoreapp3.1/chatClientNetworking.runtimeconfig.json
+/Users/nickleslie/Projects/chatClientNetworking/chatClientNetworking/bin/Debug/netcoreapp3.1/chatClientNetworking.runtimeconfig.dev.json
+/Users/nickleslie/Projects/chatClientNetworking/chatClientNetworking/bin/Debug/netcoreapp3.1/chatClientNetworking.dll
+/Users/nickleslie/Projects/chatClientNetworking/chatClientNetworking/bin/Debug/netcoreapp3.1/chatClientNetworking.pdb
+/Users/nickleslie/Projects/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.csprojAssemblyReference.cache
+/Users/nickleslie/Projects/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.AssemblyInfoInputs.cache
+/Users/nickleslie/Projects/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.AssemblyInfo.cs
+/Users/nickleslie/Projects/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.dll
+/Users/nickleslie/Projects/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.pdb
+/Users/nickleslie/Projects/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.genruntimeconfig.cache
