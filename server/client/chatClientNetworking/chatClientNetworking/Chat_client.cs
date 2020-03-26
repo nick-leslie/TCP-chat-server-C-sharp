@@ -8,12 +8,17 @@ namespace chatClientNetworking
     public class Chat_client
     {
         private int p_port = 0;
-        public int port { get => p_port; set { if (value != 0) { p_port = value; }  } }
+        public int port { get => p_port; set { if (value != 0) { p_port = value; } } }
         public int UserID;
         public Dictionary<int, string> users = new Dictionary<int, string>();
-        public Chat_client(int _port)
+        public TcpClient client;
+        public NetworkStream stream;
+        private static Mutex locker = new Mutex();
+        public Chat_client(string ip,int _port)
         {
             p_port = _port;
+            client = new TcpClient(ip, port);
+            NetworkStream stream = client.GetStream();
         }
         public void MicrosoftConect(String server, Byte[] packet)
         {
@@ -54,31 +59,35 @@ namespace chatClientNetworking
             Console.WriteLine("\n Press Enter to continue...");
             Console.Read();
         }
-         public void Start(string IP,string UserName)
-        {
-            TcpClient client = new TcpClient(IP, port);
+        public void Start(string UserName)
+        { 
             packetCreator creator = new packetCreator();
             packetReader reader = new packetReader();
             Byte[] pac = creator.createPacet(0, 0, UserName);
 
-            NetworkStream stream = client.GetStream();
 
             stream.Write(pac, 0, pac.Length);
 
             Byte[] recevedPAC = new Byte[256];
             stream.Read(recevedPAC,0,recevedPAC.Length);
             CMDInterpreter(reader.readCMD(recevedPAC), recevedPAC);
-
+            Thread receve = new Thread(receveMessage);
             //set up threading for receving messagess
         }
-        void sendMessage(string ip,Byte[] pac)
+        void sendMessage(Byte[] pac)
         {
-
-
+           locker.WaitOne();// entering the mutex so the stream is not wroute to and read at same time
+            stream.Write(pac,0,pac.Length);
+            locker.ReleaseMutex();//exiting the mutex
         }
         void receveMessage()
         {
-
+            packetReader reader = new packetReader();
+            locker.WaitOne();
+            Byte[] buffer = new Byte[256];
+            stream.Read(buffer, 0, buffer.Length);
+            CMDInterpreter(reader.ReadUserID(buffer), buffer);
+            locker.ReleaseMutex();
         }
         void addUser(Byte[] pac)
         {
