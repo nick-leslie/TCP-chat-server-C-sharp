@@ -37,23 +37,23 @@ namespace chatClientNetworking
         public void sendMessage(Byte[] pac)
         { 
             Console.WriteLine("sending message;");
-           locker.WaitOne();// entering the mutex so the stream is not wroute to and read at same time
+        //   locker.WaitOne();// entering the mutex so the stream is not wroute to and read at same time
             NetworkStream stream = client.GetStream();
             Console.WriteLine("sending message mutex");
             stream.Write(pac,0,pac.Length);
-            locker.ReleaseMutex();//exiting the mutex
+           // locker.ReleaseMutex();//exiting the mutex
         }
         void receveMessage()
         {
             while (true)
             {
                 packetReader reader = new packetReader();
-                locker.WaitOne();
+          //      locker.WaitOne();
                 Byte[] buffer = new Byte[256];
                 NetworkStream stream = client.GetStream();
                 stream.Read(buffer, 0, buffer.Length);
                 CMDInterpreter(reader.ReadUserID(buffer), buffer);
-                locker.ReleaseMutex();
+           //     locker.ReleaseMutex();
                 Thread.Sleep(500);
             }
         }

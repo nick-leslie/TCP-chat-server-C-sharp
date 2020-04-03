@@ -52,6 +52,7 @@ namespace server_programs
                 switch (cmd)
                 {
                     case 0:
+                        Console.WriteLine("starting setion ");
                         startSetion(pac,client);
                         break;
                     case 1:
@@ -100,8 +101,10 @@ namespace server_programs
             packetReader reader = new packetReader();
             foreach (KeyValuePair<int,TcpClient> kvp in userClient)
             {
+                Console.WriteLine("entering foreach");
                 if(kvp.Key != reader.ReadUserID(pac) )
                 {
+                    Console.WriteLine("should be sending to other clients");
                     TcpClient client = kvp.Value;
                     NetworkStream stream = client.GetStream();
                     stream.Write(pac, 0, pac.Length);
@@ -119,11 +122,19 @@ namespace server_programs
             packetReader reader = new packetReader();
             while(true)
             {
+                Console.WriteLine(" in the receve loop");
                 Byte[] buffer = new Byte[256];
-                stream.Read(buffer, 0, buffer.Length);
-                comandInterpriter(reader.readCMD(buffer),buffer,client);
-                Console.WriteLine(reader.ReadMessage(buffer, reader.readHeader(buffer)));
-                Thread.Sleep(500);
+                try
+                {
+                    stream.Read(buffer, 0, buffer.Length);
+                    Console.WriteLine("entering cmd from the receve messages thread");
+                    Console.WriteLine("the user id is " + reader.ReadUserID(buffer));
+                    comandInterpriter(reader.readCMD(buffer), buffer, client);
+                    Console.WriteLine(reader.ReadMessage(buffer, reader.readHeader(buffer)));
+                } catch(Exception e)
+                {
+                    Console.WriteLine("shit this is throwing an exceion " + e);
+                }
             } 
         }
     }

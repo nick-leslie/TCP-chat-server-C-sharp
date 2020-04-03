@@ -7,7 +7,7 @@ namespace chatClientNetworking
         static void Main(string[] args)
         {
             Console.ReadLine();
-            Chat_client client = new Chat_client("10.1.1.48", 1234);
+            Chat_client client = new Chat_client("localhost", 1234);
             packetCreator PacketHandler = new packetCreator();
             client.Start("swordcom36");
             while(true)
