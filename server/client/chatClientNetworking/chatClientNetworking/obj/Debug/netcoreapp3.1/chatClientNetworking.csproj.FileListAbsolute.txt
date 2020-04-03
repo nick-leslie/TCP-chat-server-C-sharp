@@ -20,6 +20,7 @@
 /Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.dll
 /Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.pdb
 /Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.genruntimeconfig.cache
+<<<<<<< HEAD
 C:\Users\nick.leslie\Desktop\programing\online-game\server\client\chatClientNetworking\chatClientNetworking\bin\Debug\netcoreapp3.1\chatClientNetworking.exe
 C:\Users\nick.leslie\Desktop\programing\online-game\server\client\chatClientNetworking\chatClientNetworking\bin\Debug\netcoreapp3.1\chatClientNetworking.deps.json
 C:\Users\nick.leslie\Desktop\programing\online-game\server\client\chatClientNetworking\chatClientNetworking\bin\Debug\netcoreapp3.1\chatClientNetworking.runtimeconfig.json
@@ -31,3 +32,6 @@ C:\Users\nick.leslie\Desktop\programing\online-game\server\client\chatClientNetw
 C:\Users\nick.leslie\Desktop\programing\online-game\server\client\chatClientNetworking\chatClientNetworking\obj\Debug\netcoreapp3.1\chatClientNetworking.AssemblyInfo.cs
 C:\Users\nick.leslie\Desktop\programing\online-game\server\client\chatClientNetworking\chatClientNetworking\obj\Debug\netcoreapp3.1\chatClientNetworking.dll
 C:\Users\nick.leslie\Desktop\programing\online-game\server\client\chatClientNetworking\chatClientNetworking\obj\Debug\netcoreapp3.1\chatClientNetworking.pdb
+=======
+/Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/obj/Debug/netcoreapp3.1/chatClientNetworking.csproj.CoreCompileInputs.cache
+>>>>>>> 0266c68cdb76fde1f36c8af7c5294d0819a72941
