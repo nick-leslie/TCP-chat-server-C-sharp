@@ -38,6 +38,7 @@ namespace chatClientNetworking
         }
         public void sendMessage(Byte[] pac)
         { 
+<<<<<<< HEAD
             //Console.WriteLine("sending message;");
             locker.WaitOne();// entering the mutex so the stream is not wroute to and read at same time
 
@@ -47,6 +48,18 @@ namespace chatClientNetworking
             stream.Flush();
 
             locker.ReleaseMutex();//exiting the mutex
+=======
+        //    Console.WriteLine("sending message;");
+           locker.WaitOne();// entering the mutex so the stream is not wroute to and read at same time
+
+            NetworkStream stream = client.GetStream();
+          //  Console.WriteLine("sending message mutex");
+            stream.Write(pac, 0, pac.Length);
+            stream.Flush();
+
+            locker.ReleaseMutex();
+            //exiting the mutex
+>>>>>>> 2201d7e8642f06d6e4fb82d9da00f00abc6d0eab
         }
         void receveMessage()
         {
@@ -57,9 +70,15 @@ namespace chatClientNetworking
                 Byte[] buffer = new Byte[256];
                 stream.Read(buffer, 0, buffer.Length);
            //     locker.ReleaseMutex();
+<<<<<<< HEAD
                 CMDInterpreter(reader.readCMD(buffer), buffer);
                 stream.Flush();
                 Thread.Sleep(500);
+=======
+                Thread.Sleep(500);
+                CMDInterpreter(reader.readCMD(buffer), buffer);
+                stream.Flush();
+>>>>>>> 2201d7e8642f06d6e4fb82d9da00f00abc6d0eab
             }
         }
         void addUser(Byte[] pac)
@@ -71,21 +90,19 @@ namespace chatClientNetworking
         }
         void CMDInterpreter(int cmd,Byte[] Pac)
         {
-            Console.WriteLine("entered cmd reader");
+          //  Console.WriteLine("entered cmd reader");
             packetReader reader = new packetReader();
             if (cmd <= 3)
             {
-                Console.WriteLine("entered the cmd structue");
+                //  Console.WriteLine("entered the cmd structue");
                 switch (cmd)
                 {
                     case 0:
                         if (UserID == 0)
                         {
                             UserID = reader.ReadUserID(Pac);
-                            Console.WriteLine(UserID + " the seting up a user ID is a scuckseess");
                         } else
-                        {
-                            Console.WriteLine("adding a new user"); 
+                        { 
                             addUser(Pac);
                         }
                         break;
@@ -109,6 +126,12 @@ namespace chatClientNetworking
                 Console.WriteLine("invaled comand");
             }
         }
-
+        public void disconect(TcpClient client)
+        {
+            packetCreator creator = new packetCreator();
+            Byte[] endPacket = creator.createPacet(UserID, 3,"");
+            sendMessage(endPacket);
+            client.Close();
+        }
     }
 }
