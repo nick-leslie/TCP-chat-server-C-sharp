@@ -94,7 +94,17 @@ namespace server_programs
             Byte[] newUserPac = creator.createPacet(userCount, 0, users[userCount]);
             NetworkStream stream = client.GetStream();
             stream.Write(newUserPac, 0, newUserPac.Length);
+            stream.Flush();
             Send(newUserPac);
+             foreach (KeyValuePair<int, string> kvp in users)
+             {
+                if (kvp.Key != userCount)
+                {
+                    newUserPac = creator.createPacet(kvp.Key,0,kvp.Value);
+                    stream.Write(newUserPac);
+                    stream.Flush();
+                }
+             }
         }
         void Send(Byte[] pac)
         {
@@ -110,6 +120,7 @@ namespace server_programs
                     stream.Write(pac, 0, pac.Length);
                 }
             }
+            
         }
         void disconect()
         {
@@ -133,7 +144,7 @@ namespace server_programs
                     Console.WriteLine(reader.ReadMessage(buffer, reader.readHeader(buffer)));
                 } catch(Exception e)
                 {
-                    Console.WriteLine("shit this is throwing an exceion " + e);
+                    Console.WriteLine("this is throwing an exceion " + e);
                 }
             } 
         }

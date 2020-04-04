@@ -38,21 +38,15 @@ namespace chatClientNetworking
         }
         public void sendMessage(Byte[] pac)
         { 
-            Console.WriteLine("sending message;");
-<<<<<<< HEAD
-        //   locker.WaitOne();// entering the mutex so the stream is not wroute to and read at same time
+            //Console.WriteLine("sending message;");
+            locker.WaitOne();// entering the mutex so the stream is not wroute to and read at same time
+
             NetworkStream stream = client.GetStream();
-            Console.WriteLine("sending message mutex");
+          //  Console.WriteLine("sending message mutex");
             stream.Write(pac,0,pac.Length);
-           // locker.ReleaseMutex();//exiting the mutex
-=======
-           //locker.WaitOne();//entering the mutex so the stream is not write to and read at same time
-         //   Console.WriteLine("sending message mutex");
-            stream.Write(pac, 0, pac.Length);
             stream.Flush();
-           // Console.WriteLine(" message seny"); 
-            //locker.ReleaseMutex();//exiting the mutex
->>>>>>> 0266c68cdb76fde1f36c8af7c5294d0819a72941
+
+            locker.ReleaseMutex();//exiting the mutex
         }
         void receveMessage()
         {
@@ -60,22 +54,12 @@ namespace chatClientNetworking
             {
               //  Console.WriteLine("receve loop called");
                 packetReader reader = new packetReader();
-<<<<<<< HEAD
-          //      locker.WaitOne();
-=======
-              //  locker.WaitOne();
->>>>>>> 0266c68cdb76fde1f36c8af7c5294d0819a72941
                 Byte[] buffer = new Byte[256];
                 stream.Read(buffer, 0, buffer.Length);
-<<<<<<< HEAD
-                CMDInterpreter(reader.ReadUserID(buffer), buffer);
            //     locker.ReleaseMutex();
-                Thread.Sleep(500);
-=======
                 CMDInterpreter(reader.readCMD(buffer), buffer);
                 stream.Flush();
-              //  locker.ReleaseMutex();
->>>>>>> 0266c68cdb76fde1f36c8af7c5294d0819a72941
+                Thread.Sleep(500);
             }
         }
         void addUser(Byte[] pac)

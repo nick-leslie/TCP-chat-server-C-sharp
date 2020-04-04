@@ -7,9 +7,9 @@ namespace chatClientNetworking
         static void Main(string[] args)
         {
             Console.ReadLine();
-            Chat_client client = new Chat_client("localhost", 1234);
+            Chat_client client = new Chat_client(, 1234);
             packetCreator PacketHandler = new packetCreator();
-            Console.Write("enter username");
+            Console.Write("enter username ");
             client.Start(Console.ReadLine());
             while(true)
             {
