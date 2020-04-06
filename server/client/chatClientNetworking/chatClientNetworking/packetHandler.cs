@@ -24,11 +24,6 @@ namespace chatClientNetworking
             //creaing the header
             int messagelength = buffer.Count - userIDLength;
             string messageHeader = messagelength.ToString().PadRight(headerSize);
-<<<<<<< HEAD
-         //   Console.WriteLine(messageHeader);
-=======
-            //Console.WriteLine(messageHeader);
->>>>>>> 2201d7e8642f06d6e4fb82d9da00f00abc6d0eab
             buffer.InsertRange(0, Encoding.ASCII.GetBytes(messageHeader));
             // creatubg the conformation packet
             buffer.InsertRange(0, Encoding.ASCII.GetBytes(packetVerification));

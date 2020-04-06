@@ -1,28 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/chatClientNetworking.csproj": {}
+    "C:\\Users\\nick.leslie\\Desktop\\programing\\online-game\\server\\client\\chatClientNetworking\\chatClientNetworking\\chatClientNetworking.csproj": {}
   },
   "projects": {
-    "/Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/chatClientNetworking.csproj": {
+    "C:\\Users\\nick.leslie\\Desktop\\programing\\online-game\\server\\client\\chatClientNetworking\\chatClientNetworking\\chatClientNetworking.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/chatClientNetworking.csproj",
+        "projectUniqueName": "C:\\Users\\nick.leslie\\Desktop\\programing\\online-game\\server\\client\\chatClientNetworking\\chatClientNetworking\\chatClientNetworking.csproj",
         "projectName": "chatClientNetworking",
-        "projectPath": "/Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/chatClientNetworking.csproj",
-        "packagesPath": "/Users/nickleslie/.nuget/packages/",
-        "outputPath": "/Users/nickleslie/Desktop/programing/online-game-chat-server/server/client/chatClientNetworking/chatClientNetworking/obj/",
+        "projectPath": "C:\\Users\\nick.leslie\\Desktop\\programing\\online-game\\server\\client\\chatClientNetworking\\chatClientNetworking\\chatClientNetworking.csproj",
+        "packagesPath": "C:\\Users\\nick.leslie\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nick.leslie\\Desktop\\programing\\online-game\\server\\client\\chatClientNetworking\\chatClientNetworking\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "/Users/nickleslie/.config/NuGet/NuGet.Config"
+          "C:\\Users\\nick.leslie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -53,7 +52,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.200/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

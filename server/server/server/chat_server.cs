@@ -12,6 +12,7 @@ namespace server_programs
         Dictionary<int, string> users = new Dictionary<int, string>();
         Dictionary<int, TcpClient> userClient = new Dictionary<int, TcpClient>();
         int userCount = 0;
+        int NumberToAssine =0;
         public void start(int _port)
         {
             int port = _port;
@@ -65,7 +66,7 @@ namespace server_programs
                         break;
                     case 3:
                         Console.WriteLine("disconect comand called");
-                        //disconect
+                        disconect(pac);
                         break;
                 }
             } else
@@ -76,12 +77,22 @@ namespace server_programs
         }
         void startSetion(Byte[] pac,TcpClient client)
         {
+            int AssiningNum=0;
             Console.WriteLine("start setion comand called");
             packetReader reader = new packetReader();
             packetCreator creator = new packetCreator();
-            userCount += 1;
-            users.Add(userCount, reader.ReadMessage(pac, reader.readHeader(pac)));
-            userClient.Add(userCount, client);
+            if (NumberToAssine == 0)
+            {
+              userCount += 1;
+                AssiningNum = userCount;
+            } else
+            {
+                AssiningNum = NumberToAssine;
+                NumberToAssine = 0;
+            }
+
+            users.Add(AssiningNum, reader.ReadMessage(pac, reader.readHeader(pac)));
+            userClient.Add(AssiningNum, client);
             foreach(KeyValuePair<int,String> kvp in users)
             {
                 Console.WriteLine("key = {0}, value ={1}",kvp.Key,kvp.Value);
@@ -91,7 +102,7 @@ namespace server_programs
               //writes the client ID and IPaddress
                 Console.WriteLine("key = {0}, value ={1}", kvp.Key,((IPEndPoint)kvp.Value.Client.RemoteEndPoint).Address.ToString());
             }
-            Byte[] newUserPac = creator.createPacet(userCount, 0, users[userCount]);
+            Byte[] newUserPac = creator.createPacet(AssiningNum, 0, users[AssiningNum]);
             NetworkStream stream = client.GetStream();
             stream.Write(newUserPac, 0, newUserPac.Length);
             stream.Flush();
@@ -122,9 +133,12 @@ namespace server_programs
             }
             
         }
-        void disconect()
+        void disconect(Byte[] pac)
         {
-
+            packetReader reader = new packetReader();
+            users.Remove(reader.ReadUserID(pac));
+            userClient.Remove(reader.ReadUserID(pac));
+            NumberToAssine = reader.ReadUserID(pac);
         }
         //this is the infint lissen loop
         void receveMessages(TcpClient client)
@@ -138,10 +152,13 @@ namespace server_programs
                 try
                 {
                     stream.Read(buffer, 0, buffer.Length);
-                    Console.WriteLine("entering cmd from the receve messages thread");
                     Console.WriteLine("the user id is " + reader.ReadUserID(buffer));
                     comandInterpriter(reader.readCMD(buffer), buffer, client);
                     Console.WriteLine(reader.ReadMessage(buffer, reader.readHeader(buffer)));
+                    if (reader.readCMD(buffer)==3)
+                    {
+                        Thread.CurrentThread.Join();
+                    }
                 } catch(Exception e)
                 {
                     Console.WriteLine("this is throwing an exceion " + e);
