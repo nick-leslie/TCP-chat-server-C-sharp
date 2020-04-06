@@ -38,47 +38,26 @@ namespace chatClientNetworking
         }
         public void sendMessage(Byte[] pac)
         { 
-<<<<<<< HEAD
-            //Console.WriteLine("sending message;");
             locker.WaitOne();// entering the mutex so the stream is not wroute to and read at same time
 
             NetworkStream stream = client.GetStream();
-          //  Console.WriteLine("sending message mutex");
             stream.Write(pac,0,pac.Length);
             stream.Flush();
 
-            locker.ReleaseMutex();//exiting the mutex
-=======
-        //    Console.WriteLine("sending message;");
-           locker.WaitOne();// entering the mutex so the stream is not wroute to and read at same time
-
-            NetworkStream stream = client.GetStream();
-          //  Console.WriteLine("sending message mutex");
-            stream.Write(pac, 0, pac.Length);
-            stream.Flush();
-
-            locker.ReleaseMutex();
+            locker.ReleaseMutex();//exiting the mute
             //exiting the mutex
->>>>>>> 2201d7e8642f06d6e4fb82d9da00f00abc6d0eab
         }
         void receveMessage()
         {
             while (true)
             {
-              //  Console.WriteLine("receve loop called");
+                //Console.WriteLine("receve loop called");
                 packetReader reader = new packetReader();
                 Byte[] buffer = new Byte[256];
                 stream.Read(buffer, 0, buffer.Length);
-           //     locker.ReleaseMutex();
-<<<<<<< HEAD
+                //locker.ReleaseMutex();
                 CMDInterpreter(reader.readCMD(buffer), buffer);
                 stream.Flush();
-                Thread.Sleep(500);
-=======
-                Thread.Sleep(500);
-                CMDInterpreter(reader.readCMD(buffer), buffer);
-                stream.Flush();
->>>>>>> 2201d7e8642f06d6e4fb82d9da00f00abc6d0eab
             }
         }
         void addUser(Byte[] pac)
@@ -117,7 +96,7 @@ namespace chatClientNetworking
                         break;
                     case 3:
                         Console.WriteLine("disconect comand called");
-                        //disconect
+                        disconectOther();
                         break;
                 }
             }
@@ -126,12 +105,16 @@ namespace chatClientNetworking
                 Console.WriteLine("invaled comand");
             }
         }
-        public void disconect(TcpClient client)
+        public void disconectSelf(TcpClient client)
         {
             packetCreator creator = new packetCreator();
             Byte[] endPacket = creator.createPacet(UserID, 3,"");
             sendMessage(endPacket);
             client.Close();
+        }
+        void disconectOther()
+        {
+
         }
     }
 }
