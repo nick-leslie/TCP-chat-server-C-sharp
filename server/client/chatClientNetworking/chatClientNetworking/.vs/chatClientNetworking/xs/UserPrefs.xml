@@ -1,17 +1,17 @@
 ﻿<Properties StartupConfiguration="{971437D6-4F56-48E2-B54A-5BC2AA86843D}|Default">
   <MonoDevelop.Ide.ItemProperties.chatClientNetworking PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Chat_client.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
     <Files>
-      <File FileName="Chat_client.cs" Line="59" Column="45" />
-      <File FileName="packetHandler.cs" Line="27" Column="15" />
-      <File FileName="Program.cs" Line="10" Column="56" />
+      <File FileName="packetHandler.cs" Line="26" Column="82" />
+      <File FileName="Chat_client.cs" />
+      <File FileName="Program.cs" Line="17" Column="36" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="chatClientNetworking" expanded="True">
             <Node name="chatClientNetworking" expanded="True">
-              <Node name="Chat_client.cs" selected="True" />
+              <Node name="Program.cs" selected="True" />
             </Node>
           </Node>
         </State>

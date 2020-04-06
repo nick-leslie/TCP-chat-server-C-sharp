@@ -7,11 +7,7 @@ namespace chatClientNetworking
         static void Main(string[] args)
         {
             Console.ReadLine();
-<<<<<<< HEAD
-            Chat_client client = new Chat_client(, 1234);
-=======
             Chat_client client = new Chat_client("10.1.1.48", 1234);
->>>>>>> 2201d7e8642f06d6e4fb82d9da00f00abc6d0eab
             packetCreator PacketHandler = new packetCreator();
             Console.Write("enter username ");
             client.Start(Console.ReadLine());
@@ -31,7 +27,7 @@ namespace chatClientNetworking
                 }
                 else
                 {
-                    client.disconect(client.client);
+                    client.disconectSelf(client.client);
                 }
             }
                 
